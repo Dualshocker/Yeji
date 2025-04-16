@@ -232,4 +232,4 @@ body {
     send.click(chat, inputs=[msg, user_id, chatbot], outputs=[chatbot, msg])
     clear.click(delete_memory, inputs=[user_id], outputs=[chatbot, msg])
 
-demo.launch()
+demo.launch(server_name="0.0.0.0", server_port=8080)
