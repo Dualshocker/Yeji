@@ -80,7 +80,8 @@ def chat(user_input, user_id, history):
     memory.append({"role": "ai", "content": reply})
     save_memory(user_id, memory)
 
-    history.append((user_input, reply))
+    history.append({"role": "user", "content": user_input})
+    history.append({"role": "ai", "content": reply})
     return history, ""
 
 # Delete memory
@@ -218,7 +219,7 @@ body {
         user_id = gr.Textbox(label="👤 Username", placeholder="Enter your username...", elem_id="username")
     with gr.Row():
         with gr.Column(scale=8):
-            chatbot = gr.Chatbot(label="Texting Ye-ji", elem_id="chatbox")
+            chatbot = gr.Chatbot(label="Texting Ye-ji", elem_id="chatbox", type="messages")
         with gr.Column(scale=2, elem_id="profile-container"):
             profile = gr.Image(value=PROFILE_IMAGE_PATH, show_label=False)
     with gr.Row(elem_id="chat-area"):
@@ -231,4 +232,4 @@ body {
     send.click(chat, inputs=[msg, user_id, chatbot], outputs=[chatbot, msg])
     clear.click(delete_memory, inputs=[user_id], outputs=[chatbot, msg])
 
-demo.launch(share=True)
+demo.launch()
